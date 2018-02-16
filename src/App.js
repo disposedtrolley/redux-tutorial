@@ -6,16 +6,14 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateUser, apiRequest } from './actions/user-actions'
 
+import { createSelector } from 'reselect'
+
 class App extends Component {
 
 	constructor(props) {
 		super(props)
 
 		this.onUpdateUser = this.onUpdateUser.bind(this)
-	}
-
-	componentDidMount() {
-		this.props.onApiRequest()
 	}
 
 	onUpdateUser(evt) {
@@ -43,13 +41,32 @@ class App extends Component {
 
 // receives the state of the store, so we can decide which props to provide to the component
 // parentheses around function body cause the contents to be automatically returned
-const mapStateToProps = (state, props) => {
-	return {
-		products: state.products,
-		user: state.user,
-		userPlusProp: `${state.user} ${props.aRandomProps}`
-	}
-}
+// const mapStateToProps = (state, props) => {
+// 	return {
+// 		products: state.products,
+// 		user: state.user,
+// 		userPlusProp: `${state.user} ${props.aRandomProps}`
+// 	}
+// }
+
+const productsSelector = createSelector(
+	state => state.products,
+	products => products
+)
+
+const userSelector = createSelector(
+	state => state.user,
+	user => user
+)
+
+const mapStateToProps = createSelector(
+	productsSelector,
+	userSelector,
+	(products, user) => ({
+		products,
+		user
+	})
+)
 
 const mapActionsToProps = {
 	onUpdateUser: updateUser,
