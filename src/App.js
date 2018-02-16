@@ -18,6 +18,8 @@ class App extends Component {
 	}
 	
   render() {
+		console.log(this.props)
+
     return (
       <div className="App">
         <header className="App-header">
@@ -36,10 +38,13 @@ class App extends Component {
 
 // receives the state of the store, so we can decide which props to provide to the component
 // parentheses around function body cause the contents to be automatically returned
-const mapStateToProps = state => ({
-	products: state.products,
-	user: state.user
-})
+const mapStateToProps = (state, props) => {
+	return {
+		products: state.products,
+		user: state.user,
+		userPlusProp: `${state.user} ${props.aRandomProps}`
+	}
+}
 
 const mapActionsToProps = {
 	onUpdateUser: updateUser

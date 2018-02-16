@@ -25,5 +25,5 @@ const store = createStore(
 )
 
 // wrap <App /> with <Provider /> so the app gains access to the store
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}><App aRandomProps="whatever" /></Provider>, document.getElementById('root'));
 registerServiceWorker();
