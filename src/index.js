@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import { combinedReducers, createStore, combineReducers } from 'redux'
+import { createStore, combineReducers } from 'redux'
 
 function productsReducer(state = [], action) {
 	return state
@@ -19,7 +19,14 @@ const allReducers = combineReducers({
 	user: userReducer
 })
 
-const store = createStore(allReducers)
+const store = createStore(
+	allReducers,
+	{
+		products: [{ name: 'iPhone' }],
+		user: 'Michael'
+	},
+	window.devToolsExtension && window.devToolsExtension()
+)
 
 console.log(store.getState())
 
