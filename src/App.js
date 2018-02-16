@@ -13,8 +13,8 @@ class App extends Component {
 		this.onUpdateUser = this.onUpdateUser.bind(this)
 	}
 
-	onUpdateUser() {
-		this.props.onUpdateUser('Sammy')
+	onUpdateUser(evt) {
+		this.props.onUpdateUser(evt.target.value)
 	}
 	
   render() {
@@ -27,7 +27,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-				<div onClick={this.onUpdateUser}>Update user</div>
+				<input onChange={this.onUpdateUser} />
 				{this.props.user}
       </div>
     );
