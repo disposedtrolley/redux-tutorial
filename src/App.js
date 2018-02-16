@@ -53,4 +53,16 @@ const mapActionsToProps = (dispatch, props) => {
 	}, dispatch)
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(App)
+const mergeProps = (propsFromState, propsFromDispatch, ownProps) => {
+	console.log(propsFromState)
+	console.log(propsFromDispatch)
+	console.log(ownProps)
+
+	return {
+		products: propsFromState.products,
+		user: propsFromState.user,
+		userPlusProp: `${propsFromState.user} ${ownProps.aRandomProps}`
+	}
+}
+
+export default connect(mapStateToProps, mapActionsToProps, mergeProps)(App)
