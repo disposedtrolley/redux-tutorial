@@ -6,19 +6,9 @@ import registerServiceWorker from './registerServiceWorker';
 
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
+import productsReducer from './reducers/products-reducer'
+import userReducer from './reducers/user-reducer'
 
-function productsReducer(state = [], action) {
-	return state
-}
-
-// { type, payload } is ES6 destructuring for the action parameter
-function userReducer(state = '', { type, payload }) {
-	switch(type) {
-		case 'updateUser':
-			return payload.user
-	}
-	return state
-}
 
 const allReducers = combineReducers({
 	products: productsReducer,
@@ -33,8 +23,6 @@ const store = createStore(
 	},
 	window.devToolsExtension && window.devToolsExtension()
 )
-
-store.dispatch(updateUserAction)
 
 // wrap <App /> with <Provider /> so the app gains access to the store
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
