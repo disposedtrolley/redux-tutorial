@@ -4,28 +4,22 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import { combinedReducers, createStore } from 'redux'
+import { combinedReducers, createStore, combineReducers } from 'redux'
 
-function reducer(state, action) {
-	if (action.type === 'changeState') {
-		return action.payload.newState
-	}
-	
-	return 'State'
+function productsReducer(state = [], action) {
+	return state
 }
 
-const store = createStore(reducer)
-
-console.log(store.getState())
-
-const action = {
-	type: 'changeState',
-	payload: {
-		newState: 'New state'
-	}
+function userReducer(state = '', action) {
+	return state
 }
 
-store.dispatch(action)
+const allReducers = combineReducers({
+	products: productsReducer,
+	user: userReducer
+})
+
+const store = createStore(allReducers)
 
 console.log(store.getState())
 
