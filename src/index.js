@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import { createStore, combineReducers } from 'redux'
+import { applyMiddleware, compose, createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import productsReducer from './reducers/products-reducer'
 import userReducer from './reducers/user-reducer'
@@ -15,13 +15,17 @@ const allReducers = combineReducers({
 	user: userReducer
 })
 
+const allStoreEnhancers = compose(
+	window.devToolsExtension && window.devToolsExtension()
+)
+
 const store = createStore(
 	allReducers,
 	{
 		products: [{ name: 'iPhone' }],
 		user: 'Michael'
 	},
-	window.devToolsExtension && window.devToolsExtension()
+	allStoreEnhancers
 )
 
 // wrap <App /> with <Provider /> so the app gains access to the store
