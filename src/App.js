@@ -4,7 +4,7 @@ import './App.css';
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateUser } from './actions/user-actions'
+import { updateUser, apiRequest } from './actions/user-actions'
 
 class App extends Component {
 
@@ -12,6 +12,10 @@ class App extends Component {
 		super(props)
 
 		this.onUpdateUser = this.onUpdateUser.bind(this)
+	}
+
+	componentDidMount() {
+		this.props.onApiRequest()
 	}
 
 	onUpdateUser(evt) {
@@ -47,22 +51,9 @@ const mapStateToProps = (state, props) => {
 	}
 }
 
-const mapActionsToProps = (dispatch, props) => {
-	return bindActionCreators({
-		onUpdateUser: updateUser
-	}, dispatch)
+const mapActionsToProps = {
+	onUpdateUser: updateUser,
+	onApiRequest: apiRequest
 }
 
-const mergeProps = (propsFromState, propsFromDispatch, ownProps) => {
-	console.log(propsFromState)
-	console.log(propsFromDispatch)
-	console.log(ownProps)
-
-	return {
-		products: propsFromState.products,
-		user: propsFromState.user,
-		userPlusProp: `${propsFromState.user} ${ownProps.aRandomProps}`
-	}
-}
-
-export default connect(mapStateToProps, mapActionsToProps, mergeProps)(App)
+export default connect(mapStateToProps, mapActionsToProps)(App)
